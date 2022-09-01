@@ -30,3 +30,5 @@ router.get('/get-test', catchError(async (req, res, next) => {
 router.post('/upload-test', catchError(async (req, res, next) => {
 
 }))
+
+module.exports = router
