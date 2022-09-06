@@ -1,6 +1,7 @@
 const router = require('express').Router(),
     catchError = require('../utils/catchError'),
-    WordService = require('../services/WordService')
+    WordService = require('../services/WordService'),
+    TestService = require('../services/TestService')
 
 // добавить новые слова, принимает массив
 router.post('/new-words', catchError(async (req, res, next) => {
@@ -28,7 +29,7 @@ router.delete('/delete-word', catchError(async (req, res, next) => {
 
 // возвращает массив слов для теста и id-теста, принимает количество возвращаемых слов
 router.get('/get-test', catchError(async (req, res, next) => {
-
+    res.send(await TestService.getTest(req.query.wordsAmount)).status(200)
 }))
 
 // принимает массив слов для проверки, возвращает результат
