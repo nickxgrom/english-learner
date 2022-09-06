@@ -8,7 +8,12 @@ module.exports = {
         })
     },
     getWordList: async () => {
-        return await WordModel.findAll()
+        const wordList = await WordModel.findAll()
+        wordList.forEach(word => {
+            word.word_variants_en = word.word_variants_en.split(',')
+            word.word_variants_ru = word.word_variants_ru.split(',')
+        })
+        return wordList
     },
     updateWord: async (id, wordsEn, wordsRu) => {
         await WordModel.update({
