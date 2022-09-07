@@ -10,5 +10,22 @@ module.exports = {
             randomWords.push(rows.splice(randomItemIndex, 1))
         }
         return randomWords
+    },
+    checkTest: async (words) => {
+        let result = []
+        for (let word of words) {
+            const { id, translation, targetLang } = word
+            result.push(await checkWord(id, translation, targetLang))
+        }
+        return result
+    }
+}
+
+async function checkWord(wordId, translation, targetLang) {
+    const word = await WordModel.findByPk(wordId)
+    return {
+        id: wordId,
+        // TODO: сделать по вхождению перевода
+        passed: word[`word_variants_${targetLang}`] === translation
     }
 }

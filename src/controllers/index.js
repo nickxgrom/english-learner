@@ -34,7 +34,7 @@ router.get('/get-test', catchError(async (req, res, next) => {
 
 // принимает массив слов для проверки, возвращает результат
 router.post('/upload-test', catchError(async (req, res, next) => {
-
+    res.send(await TestService.checkTest(req.body.words)).status(200)
 }))
 
 module.exports = router
