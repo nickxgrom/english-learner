@@ -2,9 +2,12 @@ const WordModel = require('../models/Word')
 
 module.exports = {
     getTest: async (wordsAmount) => {
-        // TODO: добавить проверку на количество записей в бд и сколько запрашивает
+        // TODO: переделать проверку на количество записей в бд и сколько запрашивает
         const { count, rows } = await WordModel.findAndCountAll()
-        let randomWords = []
+        if (count < wordsAmount) {
+            return 'В базе нет запрашиваемого количества слов'
+        }
+            let randomWords = []
         for (let i = 0; i < wordsAmount; i++) {
             const randomItemIndex = Math.floor(Math.random()*rows.length)
             randomWords.push(rows.splice(randomItemIndex, 1))
@@ -25,7 +28,7 @@ async function checkWord(wordId, translation, targetLang) {
     const word = await WordModel.findByPk(wordId)
     return {
         id: wordId,
-        // TODO: сделать по вхождению перевода
-        passed: word[`word_variants_${targetLang}`] === translation
+        // TODO: возможно необходимо переделать
+        passed: word[`word_variants_${targetLang}`].includes(translation)
     }
 }
