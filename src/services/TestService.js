@@ -7,10 +7,15 @@ module.exports = {
         if (count < wordsAmount) {
             return 'В базе нет запрашиваемого количества слов'
         }
-            let randomWords = []
+        let randomWords = []
         for (let i = 0; i < wordsAmount; i++) {
             const randomItemIndex = Math.floor(Math.random()*rows.length)
-            randomWords.push(rows.splice(randomItemIndex, 1))
+            const word = rows.splice(randomItemIndex, 1)[0]
+            randomWords.push({
+                id: word.id,
+                word_variants_en: word.word_variants_en.split(','),
+                word_variants_ru: word.word_variants_ru.split(',')
+            })
         }
         return randomWords
     },
