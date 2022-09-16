@@ -31,9 +31,15 @@ module.exports = {
 
 async function checkWord(wordId, translation, targetLang) {
     const word = await WordModel.findByPk(wordId)
+    let passed = false,
+        i = 0,
+        wordVariants = word[`word_variants_${targetLang}`].split(',')
+    while (!passed && i < wordVariants.length) {
+        passed = passed || wordVariants[i] === translation.toLowerCase()
+        i++
+    }
     return {
         id: wordId,
-        // TODO: возможно необходимо переделать
-        passed: word[`word_variants_${targetLang}`].includes(translation)
+        passed
     }
 }
