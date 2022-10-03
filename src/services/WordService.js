@@ -3,8 +3,8 @@ const WordModel = require('../models/Word')
 module.exports = {
     addWords: async (wordsEn, wordsRu) => {
         await WordModel.create({
-            word_variants_en: wordsEn.join(','),
-            word_variants_ru: wordsRu.join(',')
+            word_variants_en: wordsEn.join(',').toLowerCase(),
+            word_variants_ru: wordsRu.join(',').toLowerCase()
         })
     },
     getWordList: async () => {
@@ -17,8 +17,8 @@ module.exports = {
     },
     updateWord: async (id, wordsEn, wordsRu) => {
         await WordModel.update({
-            word_variants_en: wordsEn.join(','),
-            word_variants_ru: wordsRu.join(',')
+            word_variants_en: wordsEn.join(',').toLowerCase(),
+            word_variants_ru: wordsRu.join(',').toLowerCase()
         }, { where: { id }})
     },
     deleteWord: async (id) => {

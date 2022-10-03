@@ -35,7 +35,7 @@ async function checkWord(wordId, translation, targetLang) {
         i = 0,
         wordVariants = word[`word_variants_${targetLang}`].split(',')
     while (!passed && i < wordVariants.length) {
-        passed = passed || wordVariants[i] === translation.toLowerCase()
+        passed = passed || wordVariants[i].toLowerCase() === translation.toLowerCase()
         i++
     }
     return {
