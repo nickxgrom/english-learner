@@ -1,4 +1,5 @@
-const WordModel = require('../models/Word')
+const WordModel = require('../models/Word'),
+    StatisticService = require('../services/StatisticSevice')
 
 module.exports = {
     getTest: async (wordsAmount) => {
@@ -25,6 +26,11 @@ module.exports = {
             const { id, translation, targetLang } = word
             result.push(await checkWord(id, translation, targetLang))
         }
+        await StatisticService.createStatisticNode(
+            words.map(word => word.id).join(','),
+            result.map(word => word.passed).length,
+            words.length
+        )
         return result
     }
 }
